@@ -1,7 +1,8 @@
 import serial
 import time
 
-port = 'COM5'
+#port = 'COM5'
+#port = '/dev/cu.usbserial-1420'
 baud = 9600
 maxChar = 16
 
