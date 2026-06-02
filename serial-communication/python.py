@@ -8,8 +8,8 @@ port = 'COM4'
 #port = '/dev/cu.usbserial-1420'
 baud = 9600
 sample = {
-  "latitude": 38.89648,
-  "longitude": -77.06097,
+  "latitude": 38.89,
+  "longitude": -77.06,
   "generationtime_ms": 0.138521194458008,
   "utc_offset_seconds": -14400,
   "timezone": "America/New_York",
