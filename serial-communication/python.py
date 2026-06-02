@@ -1,58 +1,75 @@
-import serial
+import serial                           # pip install pyserial
 import time
 import json
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo           # pip install tzdata
 
-#port = 'COM5'
+port = 'COM4'
 #port = '/dev/cu.usbserial-1420'
 baud = 9600
-maxChar = 16
+sample = {
+  "latitude": 38.89648,
+  "longitude": -77.06097,
+  "generationtime_ms": 0.138521194458008,
+  "utc_offset_seconds": -14400,
+  "timezone": "America/New_York",
+  "timezone_abbreviation": "GMT-4",
+  "elevation": 32,
+  "current_units": {
+    "time": "unixtime",
+    "interval": "seconds",
+    "temperature_2m": "°C",
+    "weather_code": "wmo code"
+  },
+  "current": {
+    "time": 1780424100,
+    "interval": 900,
+    "temperature_2m": 23.8,
+    "weather_code": 0
+  }
+}
+
+print("----- PROGRAM START -----\n")
 
 try:
-    print(f"Searching for Arduino at port {port} with baud {baud}.")
-    ser = serial.Serial(port, baud, timeout=1)
-    print(f"Found Arduino at port {port} with baud {baud}.\nConnecting to Arduino at port {port} with baud {baud}.")
+    print(f"Locating Arduino at {port}.")
+    arduino = serial.Serial(port, baud, timeout=1)
+    print(f"Arduino located at {port}. Attempting to connect...")
     time.sleep(2)
-    print(f"Connected to Arduino at port {port} with baud {baud}.")
+    print(f"Connected to Arduino at {port}.")
 
     while True:
-        comm = str(input(f"Enter a string with a character limit of {maxChar} or 'q' to quit.\n\t").strip())
+        outgoing_timestamp = sample["current"]["time"]
 
-        if comm == "q":
-            break
+        dt = datetime.fromtimestamp(outgoing_timestamp, tz=ZoneInfo('America/New_York'))
 
-        elif len(comm) > maxChar:
-            print(f"Too many characters were entered. The maximum limit is {maxChar}.")
-            continue
+        outgoing_dict = {
+            "time": f"{dt.strftime('%Y.%m.%d %H.%M')}",
+            "temp": sample["current"]["temperature_2m"],
+            "weather": sample["current"]["weather_code"]
+        }
+        outgoing_json = json.dumps(outgoing_dict) + "\n"
+        print(f"Sending JSON payload of\n{outgoing_json.strip()}\nto Arduino at {port}.")
+        arduino.write(outgoing_json.encode('utf-8'))
 
-        elif len(comm) == 0:
-            continue
-
+        time.sleep(0.5)
+        response_text = arduino.readline().decode('utf-8').strip()
+        if response_text != "":
+            print(response_text)
         else:
-            payload = {"text": comm}
-            json_string = json.dumps(payload) + "\n"
+            print(f"Error: Timeout on Arduino at {port}.")
 
-            print(f"Sending JSON payload of {json_string.strip()}")
-            ser.write(json_string.encode('utf-8'))
-            timeout_start = time.time()
-            while ser.in_waiting > 0:
-                if time.time() - timeout_start > 5:
-                    print("Error: The Arduino failed to respond within 5 seconds.")
-                    break
+        print()
+        time.sleep(2)
 
-            response = ser.readline().decode('utf-8').strip()
-            print(f"{response}")
-            print()
-            continue
-
-except serial.SerialException as error:
-    print(f"The connection to port {port} has failed. Ensure the Arduino is plugged in and the Serial Monitor in the Arduino IDE is closed, then try again.\n{error}")
 except Exception as error:
-    print(f"An unknown exception occurred.\n{error}")
+    print(f"Error: {error}")
 finally:
-    print(f"Closing connection to Arduino at port {port} with baud {baud}.")
+    print(f"Closing connection to Arduino at {port}.")
     if 'ser' in locals() and ser.is_open:
         ser.close()
-        print(f"Closed connection to port {port} with baud {baud}.")
+        print(f"Closed connection to Arduino at {port}.")
     else:
-        print(f"The connection to port {port} was not found.")
-    print("Program complete.")
+        print(f"The connection to Arduino at {port} was not found.")
+
+    print("\n----- PROGRAM COMPLETE -----")
