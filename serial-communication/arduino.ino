@@ -20,18 +20,18 @@ void loop() {
       DeserializationError error = deserializeJson(json, inputData);
 
       if(error) {
-        lcd.print("JSON Error");
-        Serial.println("Error: JSON Parsing Failed");
+        lcd_reset();
+        lcd.print("Error");
+        Serial.print("Error: ");
+        Serial.println(error.c_str());
         return;
       }
-  
-      const char* text = json["text"];
-      if (text != nullptr && String(text) != ""){
-        lcd_reset();
-        lcd.print(text);
-        Serial.print(text);
-        Serial.println(" is now being displayed.");
-      }
+      
+      const char* text = json["time"];
+      lcd_reset();
+      lcd.print(text);
+      Serial.print(text);
+      Serial.println(" is now being displayed.");
   }
 }
 
