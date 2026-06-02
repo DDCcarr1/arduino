@@ -1,0 +1,40 @@
+C:\Users\APS.Student.HS\PyCharmMiscProject\.venv\Scripts\python.exe C:\Users\APS.Student.HS\PyCharmMiscProject\script.py 
+----- PROGRAM START -----
+
+Locating Arduino at COM4.
+Arduino located at COM4. Attempting to connect...
+Connected to Arduino at COM4.
+Sending JSON payload of
+{"time": "2026.06.02 14.15", "temp": 23.8, "weather": 0}
+to Arduino at COM4.
+2026.06.02 14.15 is now being displayed.
+
+Sending JSON payload of
+{"time": "2026.06.02 14.15", "temp": 23.8, "weather": 0}
+to Arduino at COM4.
+2026.06.02 14.15 is now being displayed.
+
+Sending JSON payload of
+{"time": "2026.06.02 14.15", "temp": 23.8, "weather": 0}
+to Arduino at COM4.
+2026.06.02 14.15 is now being displayed.
+
+Sending JSON payload of
+{"time": "2026.06.02 14.15", "temp": 23.8, "weather": 0}
+to Arduino at COM4.
+2026.06.02 14.15 is now being displayed.
+
+Sending JSON payload of
+{"time": "2026.06.02 14.15", "temp": 23.8, "weather": 0}
+to Arduino at COM4.
+Traceback (most recent call last):
+  File "C:\Users\APS.Student.HS\PyCharmMiscProject\script.py", line 55, in <module>
+    time.sleep(0.5)
+    ~~~~~~~~~~^^^^^
+KeyboardInterrupt
+Closing connection to Arduino at COM4.
+The connection to Arduino at COM4 was not found.
+
+----- PROGRAM COMPLETE -----
+
+Process finished with exit code -1073741510 (0xC000013A: interrupted by Ctrl+C)
