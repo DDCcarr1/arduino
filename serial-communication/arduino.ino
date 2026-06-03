@@ -27,10 +27,16 @@ void loop() {
         return;
       }
       
-      const char* text = json["time"];
+      const char* date = json["time"];
+      const char* weather = json["weather"];
+      const char* temp = json["temp"]
       lcd_reset();
-      lcd.print(text);
-      Serial.print(text);
+      lcd.print(temp);
+      lcd.print(" | ");
+      lcd.print(weather);
+      lcd.setCursor(0,1);
+      lcd.print(date);
+//f      Serial.print(text);
       Serial.println(" is now being displayed.");
   }
 }
@@ -45,6 +51,8 @@ void lcd_start(){
   lcd.display();
   lcd.noBlink();
 }
+
+
 
 void lcd_reset(){
   lcd.clear();
