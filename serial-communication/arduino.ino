@@ -32,11 +32,10 @@ void loop() {
       const char* temp = json["temp"];
       lcd_reset();
       lcd.print(temp);
-      lcd.print(" | ");
+      lcd.print("° | ");
       lcd.print(weather);
       lcd.setCursor(0,1);
       lcd.print(date);
-//f      Serial.print(text);
       Serial.println(" is now being displayed.");
   }
 }
