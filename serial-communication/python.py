@@ -66,8 +66,8 @@ except Exception as error:
     print(f"Error: {error}")
 finally:
     print(f"Closing connection to Arduino at {port}.")
-    if 'ser' in locals() and ser.is_open:
-        ser.close()
+    if 'arduino' in locals() and arduino.is_open:
+        arduino.close()
         print(f"Closed connection to Arduino at {port}.")
     else:
         print(f"The connection to Arduino at {port} was not found.")
