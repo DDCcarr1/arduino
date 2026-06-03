@@ -62,7 +62,7 @@ try:
 
         outgoing_dict = {
             "time": f"{dt.strftime('%Y.%m.%d %H.%M')}",
-            "temp": incoming_json["current"]["temperature_2m"],
+            "temp": str(round(incoming_json["current"]["temperature_2m"])),
             "weather": wmo_codes[str(incoming_json["current"]["weather_code"])]
         }
         outgoing_json = json.dumps(outgoing_dict) + "\n"
