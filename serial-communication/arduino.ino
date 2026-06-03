@@ -29,7 +29,7 @@ void loop() {
       
       const char* date = json["time"];
       const char* weather = json["weather"];
-      const char* temp = json["temp"]
+      const char* temp = json["temp"];
       lcd_reset();
       lcd.print(temp);
       lcd.print(" | ");
