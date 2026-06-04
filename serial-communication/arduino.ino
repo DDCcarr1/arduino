@@ -6,9 +6,9 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 JsonDocument json;
 String inputData;
 const uint8_t degreesCelsius_ico[8] = {
-  0b11100,
+  0b01000,
   0b10100,
-  0b11100,
+  0b01000,
   0b00111,
   0b01000,
   0b01000,
