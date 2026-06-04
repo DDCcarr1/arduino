@@ -1,17 +1,17 @@
-import serial                           # pip install pyserial
+import serial
 import time
 import json
 from datetime import datetime, timezone
-from zoneinfo import ZoneInfo           # pip install tzdata
-import requests                         # pip install requests
+from zoneinfo import ZoneInfo
+import requests
 
 port = 'COM3'
 #port = '/dev/cu.usbserial-1420'
 baud = 9600
 api_url = "https://api.open-meteo.com/v1/forecast?latitude=38.8922&longitude=-77.0708&current=temperature_2m,weather_code&timezone=America%2FNew_York&timeformat=unixtime&wind_speed_unit=ms"
 sample = {
-  "latitude": 38.89,
-  "longitude": -77.06,
+  "latitude": 38,
+  "longitude": -77,
   "generationtime_ms": 0.138521194458008,
   "utc_offset_seconds": -14400,
   "timezone": "America/New_York",
